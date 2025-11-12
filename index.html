@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="VI">
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMS | HỆ THỐNG QUẢN LÝ BỆNH VIỆN NHÂN DÂN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* MÀU CHỦ ĐẠO LẤY TỪ ẢNH */
+            --MINT-DARK: #689F38; /* Xanh lá đậm */
+            --MINT-LIGHT: #8BC34A; /* Xanh lá sáng */
+            --GOLD-TEXT: #DAA520; /* Màu chữ slogan */
+            --TEXT-COLOR: #333;
+            --TEXT-MUTED: #666;
+            --BORDER-COLOR: #E0E0E0;
+            --SHADOW-SOFT: 0 2px 4px rgba(0, 0, 0, 0.1);
+            
+            /* MÀU NHẤN */
+            --ACCENT-MINT: #4CAF50; 
+            --ACCENT-SKY: #03A9F4; 
+            --CONSOLE-BG: #2A2A2A;
+            --CONSOLE-TEXT: #90EE90; /* Dùng cho log success/info */
+            --RED-DANGER: #D32F2F;
+            --YELLOW-WARN: #FBC02D;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--TEXT-COLOR);
+        }
+        
+        .CONTAINER-BM {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Styles cho nút hành động */
+        .ACTION-BTN-BM {
+            padding: 8px 15px;
+            border-radius: 4px;
+            color: white;
+            font-weight: 500;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .BG-MINT-ACCENT { background-color: var(--MINT-DARK); }
+        .BG-MINT-ACCENT:hover { background-color: var(--MINT-LIGHT); }
+        .BG-SKY-ACCENT { background-color: var(--ACCENT-SKY); }
+        .BG-SKY-ACCENT:hover { background-color: #0288D1; }
+        .BG-RED-PASTEL { background-color: var(--RED-DANGER); }
+        .BG-RED-PASTEL:hover { background-color: #C62828; }
+
+        /* HEADER, NAV, BANNER - GIỮ NGUYÊN */
+        .HEADER-TOP-BM { background-color: var(--MINT-DARK); height: 40px; display: flex; justify-content: flex-end; align-items: center; }
+        .TOP-LINK-BM { color: white; padding: 5px 15px; font-size: 0.9em; text-decoration: none; }
+        .APPOINTMENT-BTN { background-color: var(--MINT-LIGHT); border-radius: 4px; font-weight: 500; margin-right: 15px; }
+        .APPOINTMENT-BTN:hover { background-color: var(--MINT-DARK); }
+        .HEADER-MIDDLE-BM { padding: 15px 0; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); background-color: white; }
+        .HOSPITAL-BRAND-BM { display: flex; align-items: center; }
+        .LOGO-ICON-BM { color: var(--MINT-DARK); font-size: 2.5em; margin-right: 10px; }
+        .HOSPITAL-NAME-BM { font-size: 1.4em; font-weight: 600; color: var(--MINT-DARK); }
+        .BRAND-SLOGAN-BM { font-family: 'Dancing Script', cursive; font-size: 1.2em; color: var(--GOLD-TEXT); margin-top: 5px; margin-left: 20px; }
+        .SEARCH-BOX-BM { display: flex; align-items: center; border: 1px solid var(--MINT-DARK); border-radius: 25px; overflow: hidden; height: 40px; }
+        .SEARCH-INPUT-BM { padding: 10px 15px; border: none; outline: none; width: 200px; font-size: 0.9em; text-transform: none; }
+        .SEARCH-BTN-BM { background-color: var(--MINT-DARK); color: white; border: none; padding: 10px 15px; cursor: pointer; height: 100%; }
+        .SEARCH-BTN-BM:hover { background-color: var(--MINT-LIGHT); }
+        .HEADER-NAV-BM { background-color: white; border-top: 1px solid var(--BORDER-COLOR); }
+        .CONTAINER-NAV-BM { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; }
+        .NAV-ITEM-BM A { text-decoration: none; color: var(--TEXT-COLOR); padding: 15px 20px; display: block; font-weight: 500; transition: color 0.3s, border-bottom 0.3s; border-bottom: 3px solid transparent; }
+        .NAV-ITEM-BM.active A { color: var(--MINT-DARK); border-bottom: 3px solid var(--MINT-DARK); }
+        .NAV-ITEM-BM A:hover { color: var(--MINT-DARK); }
+        .MAIN-CONTENT-BACKGROUND { background-image: url('https://image.luatvietnam.vn/uploaded/1200x675twebp/images/original/2020/12/24/benh-vien_2808175558_2412092857.jpg'); background-size: cover; background-position: center 50%; height: 300px; position: relative; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+        .IMAGE-OVERLAY { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(104, 159, 56, 0.3); } 
+        .WELCOME-TITLE-WRAPPER { position: relative; z-index: 20; text-align: center; background-color: rgba(51, 51, 51, 0.65); color: white; padding: 10px 40px; border-radius: 5px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); }
+        .WELCOME-TITLE { color: white; font-size: 2.5em; font-weight: 700; }
+        .SERVICE-GRID-BM { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: -50px; position: relative; z-index: 10; }
+        .SERVICE-CARD-BM { text-align: center; padding: 20px 10px; background-color: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .SERVICE-ICON-BM { font-size: 2em; margin-bottom: 5px; }
+        .SERVICE-TITLE-BM { display: block; font-size: 1em; font-weight: 600; color: var(--MINT-DARK); margin-bottom: 3px; text-transform: uppercase; }
+        .SERVICE-DETAIL-BM { display: block; font-size: 0.8em; color: var(--TEXT-MUTED); text-transform: none; }
+        .MAIN-CONTENT-WRAPPER-BM { padding-bottom: 30px; background-color: #f9fafb; }
+        .CONTENT-AREA-BM { padding-top: 30px; }
+        .PAGE-TITLE-BM { color: var(--MINT-DARK); font-size: 1.5em; margin-bottom: 20px; font-weight: 600; }
+
+        /* CUSTOM STYLE CHO LOG DISPLAY MỚI */
+        #GlobalLogDisplay {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #F0F4F8; /* Nền sáng hơn */
+            border: 1px solid #D9E2EC;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            max-height: 250px; /* Giới hạn chiều cao */
+            overflow-y: auto; /* Thêm thanh cuộn khi cần */
+        }
+        
+        .log-entry {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            padding: 4px 8px;
+            margin-bottom: 2px;
+            border-radius: 3px;
+            line-height: 1.3;
+            text-transform: none;
+        }
+
+        .log-info { 
+            color: var(--TEXT-COLOR); /* Thông tin chung/API call */
+            background-color: transparent;
+        }
+        
+        .log-success { 
+            color: #008000; /* Thông báo thành công */
+            background-color: #E6FFE6;
+            border-left: 4px solid #00A000;
+            font-weight: 500;
+        }
+
+        .log-warning {
+            color: var(--YELLOW-WARN); /* Cảnh báo nhập liệu */
+            background-color: #FFFDE7;
+            border-left: 4px solid var(--YELLOW-WARN);
+        }
+
+        .log-error {
+            color: var(--RED-DANGER); /* Lỗi mạng/API */
+            background-color: #FFEEEE;
+            border-left: 4px solid var(--RED-DANGER);
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="MAIN-HEADER-BM sticky top-0 z-50">
+        <div class="HEADER-TOP-BM">
+            <div class="CONTAINER-BM flex justify-end items-center h-full">
+                <a href="#" class="TOP-LINK-BM PHONE-CALL">
+                    <i class="FAS FA-PHONE-ALT"></i> GỌI TỔNG ĐÀI 1900.111.111
+                </a>
+                <a href="#" class="TOP-LINK-BM APPOINTMENT-BTN">
+                    ĐẶT LỊCH KHÁM
+                </a>
+            </div>
+        </div>
+
+        <div class="HEADER-MIDDLE-BM">
+            <div class="CONTAINER-BM flex justify-between items-center">
+                
+                <div class="HOSPITAL-BRAND-BM">
+                    <i class="fas fa-hospital-symbol LOGO-ICON-BM"></i>
+                    <div class="BRAND-INFO-BM">
+                        <span class="HOSPITAL-NAME-BM">BỆNH VIỆN NHÂN DÂN</span>
+                        <span class="BRAND-SLOGAN-BM FANCY-TEXT">VÌ SỨC KHỎẺ NHÂN DÂN</span>
+                    </div>
+                </div>
+
+                <div class="SEARCH-BOX-BM">
+                    <input type="text" placeholder="TÌM KIẾM..." class="SEARCH-INPUT-BM" id="GLOBAL_SEARCH_INPUT">
+                    <button class="SEARCH-BTN-BM" onclick="SEARCH_GLOBAL()"><i class="FAS FA-SEARCH"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <nav class="HEADER-NAV-BM">
+            <ul class="CONTAINER-NAV-BM">
+                <li class="NAV-ITEM-BM active"><a href="#" onclick="LOADPAGE('DOCTOR')">QUẢN LÝ BÁC SĨ</a></li>
+                <li class="NAV-ITEM-BM"><a href="#" onclick="LOADPAGE('NURSE')">QUẢN LÝ Y TÁ</a></li>
+                <li class="NAV-ITEM-BM"><a href="#" onclick="LOADPAGE('PATIENT')">QUẢN LÝ BỆNH NHÂN</a></li>
+                <li class="NAV-ITEM-BM"><a href="#" onclick="LOADPAGE('APPOINTMENT')">QUẢN LÝ LỊCH HẸN</a></li>
+                <li class="NAV-ITEM-BM"><a href="#" onclick="LOADPAGE('TREATMENT')">QUẢN LÝ ĐIỀU TRỊ</a></li>
+                <li class="NAV-ITEM-BM"><a href="#" onclick="ALERT('ĐÃ ĐĂNG XUẤT.')">THOÁT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="MAIN-CONTENT-WRAPPER-BM">
+        
+        <div class="MAIN-CONTENT-BACKGROUND">
+            <div class="IMAGE-OVERLAY"></div> 
+            <div class="WELCOME-TITLE-WRAPPER">
+                <h1 class="WELCOME-TITLE">HỆ THỐNG QUẢN LÝ DỊCH VỤ Y TẾ</h1>
+            </div>
+        </div>
+        
+        <div class="SERVICE-QUICK-LINKS-BM">
+            <div class="CONTAINER-BM SERVICE-GRID-BM">
+                <div class="SERVICE-CARD-BM">
+                    <i class="fas fa-phone-volume SERVICE-ICON-BM" style="color: var(--ACCENT-MINT);"></i>
+                    <span class="SERVICE-TITLE-BM">GỌI TỔNG ĐÀI</span>
+                    <span class="SERVICE-DETAIL-BM">ĐẶT LỊCH KHÁM NHANH QUA TỔNG ĐÀI</span>
+                </div>
+                <div class="SERVICE-CARD-BM">
+                    <i class="fas fa-calendar-check SERVICE-ICON-BM" style="color: var(--ACCENT-SKY);"></i>
+                    <span class="SERVICE-TITLE-BM">ĐẶT LỊCH KHÁM</span>
+                    <span class="SERVICE-DETAIL-BM">ĐẶT LỊCH KHÁM ONLINE TẠI WEBSITE</span>
+                </div>
+                <div class="SERVICE-CARD-BM">
+                    <i class="fas fa-user-md SERVICE-ICON-BM" style="color: #FFB74D;"></i>
+                    <span class="SERVICE-TITLE-BM">HỎI ĐÁP CHUYÊN GIA</span>
+                    <span class="SERVICE-DETAIL-BM">GIẢI ĐÁP THẮC MẮC VỀ SỨC KHỎE</span>
+                </div>
+                <div class="SERVICE-CARD-BM">
+                    <i class="fas fa-file-medical-alt SERVICE-ICON-BM" style="color: #7986CB;"></i>
+                    <span class="SERVICE-TITLE-BM">KẾT QUẢ XÉT NGHIỆM</span>
+                    <span class="SERVICE-DETAIL-BM">TRA CỨU KẾT QUẢ XÉT NGHIỆM CỦA BẠN</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="CONTENT-AREA-BM" class="CONTENT-AREA-BM CONTAINER-BM">
+            
+            <h1 class="PAGE-TITLE-BM">HỆ THỐNG QUẢN LÝ BỆNH VIỆN (HMS)</h1>
+            
+            <div class="ACTION-INPUT-AREA flex flex-wrap items-center gap-4 p-4 bg-white rounded-lg shadow-sm border border-gray-200">
+                <label class="font-semibold text-gray-700">ID/TỪ KHÓA:</label>
+                <input type="text" id="action_id_input" placeholder="NHẬP ID HOẶC TỪ KHÓA TÌM KIẾM" class="p-2 border border-gray-300 rounded-md w-80 text-sm">
+                <span class="text-xs text-gray-500">Sử dụng ô này cho Tìm kiếm (3), Xóa (4) và Cập nhật (5).</span>
+            </div>
+            
+            <div id="MAIN_FUNCTION_AREA">
+                </div>
+            
+            <div id="DataDisplayArea">
+                 <h2 class="PAGE-TITLE-BM mt-8 border-b border-gray-300 pb-2">📊 DỮ LIỆU HIỆN TẠI</h2>
+                 <p id="DataDisplayTitle" class="text-sm mb-4 text-gray-600">Chọn chức năng để xem danh sách hoặc kết quả.</p>
+                 <div id="DataDisplayContent">
+                     <p class="text-gray-500 mt-4 p-4 bg-white rounded-lg border">Vui lòng chọn một chức năng quản lý từ menu trên.</p>
+                 </div>
+            </div>
+            
+            <h2 class="PAGE-TITLE-BM mt-8 border-b border-gray-300 pb-2"><i class="fas fa-clipboard-list"></i> LỊCH SỬ THAO TÁC (LOG)</h2>
+            <div id="GlobalLogDisplay">
+                </div>
+            
+            </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        // Địa chỉ máy chủ C++ API (Crow/Pistache) của bạn
+        const API_BASE_URL = 'http://localhost:8080/api/'; 
+        // LẤY ELEMENT MỚI
+        const GLOBAL_LOG_DISPLAY = document.getElementById('GlobalLogDisplay');
+        let CURRENT_MODULE = 'DOCTOR'; 
+        let isConnectionErrorShown = false; 
+
+        function LOG_MESSAGE(message, type = 'info') {
+            const TIMESTAMP = new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+            
+            // Tạo một thẻ div/p mới cho log
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-${type}`;
+            
+            // Xóa tiền tố console cũ ">" và thêm icon thay thế
+            let prefix = '';
+            if (type === 'error') {
+                prefix = '<i class="FAS FA-EXCLAMATION-TRIANGLE"></i> LỖI: ';
+            } else if (type === 'success') {
+                prefix = '<i class="FAS FA-CHECK-CIRCLE"></i> ';
+            } else if (type === 'warning') {
+                prefix = '<i class="FAS FA-EXCLAMATION-CIRCLE"></i> ';
+            } else {
+                prefix = '<i class="FAS FA-TERMINAL"></i> ';
+            }
+            
+            // Chèn nội dung log
+            logEntry.innerHTML = `${prefix} **[${TIMESTAMP}]** ${message}`;
+            
+            // Thêm vào đầu khu vực log để log mới nhất hiện lên trên
+            if (GLOBAL_LOG_DISPLAY.firstChild) {
+                GLOBAL_LOG_DISPLAY.insertBefore(logEntry, GLOBAL_LOG_DISPLAY.firstChild);
+            } else {
+                GLOBAL_LOG_DISPLAY.appendChild(logEntry);
+            }
+            
+            // Giới hạn số lượng log hiển thị (ví dụ: 50 dòng)
+            while (GLOBAL_LOG_DISPLAY.children.length > 50) {
+                GLOBAL_LOG_DISPLAY.removeChild(GLOBAL_LOG_DISPLAY.lastChild);
+            }
+        }
+        
+        // Cập nhật hàm xử lý lỗi kết nối để sử dụng LOG_MESSAGE
+        function SHOW_CONNECTION_ERROR(msg) {
+             if (isConnectionErrorShown) return;
+             // Sử dụng LOG_MESSAGE với type 'error'
+             LOG_MESSAGE(`**LỖI KẾT NỐI:** ${msg}. VUI LÒNG ĐẢM BẢO máy chủ C++ (localhost:8080) đang chạy.`, 'error');
+             isConnectionErrorShown = true;
+        }
+
+        function SEARCH_GLOBAL() {
+            const query = document.getElementById('GLOBAL_SEARCH_INPUT').value;
+            if (!query) return LOG_MESSAGE("VUI LÒNG NHẬP TỪ KHÓA TÌM KIẾM.", 'warning');
+            alert(`Đang tìm kiếm toàn cục cho: "${query}"`);
+        }
+
+        function ALERT(message) {
+            alert(message);
+        }
+
+        // Hàm xử lý form submit - MỚI THÊM
+        function handleFormSubmit(event, module) {
+            event.preventDefault(); // QUAN TRỌNG: ngăn reload trang
+            event.stopPropagation(); // Ngăn sự kiện lan truyền
+            
+            // Gọi API với thông tin từ form
+            CALL_API(module, window.FORM_MODE === 'ADD' ? 'ADD' : 'UPDATE');
+            
+            // Ngăn form submit mặc định
+            return false;
+        }
+
+        const MODULE_CONFIG = {
+    'DOCTOR': { 
+        plural: 'doctors', 
+        name: 'BÁC SĨ', 
+        fields: ['id','name','specialty','phone','email']
+    },
+    'NURSE': { 
+        plural: 'nurses', 
+        name: 'Y TÁ', 
+        fields: ['id','name','position','phone','email'] 
+    },
+    'PATIENT': { 
+        plural: 'patients', 
+        name: 'BỆNH NHÂN', 
+        fields: ['id','name','dateOfBirth','phone','email'] 
+    },
+    'APPOINTMENT': { 
+        plural: 'appointments', 
+        name: 'LỊCH HẸN', 
+        fields: ['id','patientId','doctorId','typeName','date','time','status'],
+        types: [
+            { value: 'Khám tổng quát', label: 'Khám tổng quát' },
+            { value: 'Cấp cứu', label: 'Cấp cứu' },
+            { value: 'Phẫu thuật', label: 'Phẫu thuật' }
+        ]
+    },
+    'TREATMENT': { 
+        plural: 'treatments', 
+        name: 'ĐIỀU TRỊ', 
+        fields: ['id','patientId','typeName','date','notes','status'],
+        types: [
+            { value: 'Vật lý trị liệu', label: 'Vật lý trị liệu' },
+            { value: 'Điều trị thuốc', label: 'Điều trị thuốc' },
+            { value: 'Phẫu thuật', label: 'Phẫu thuật' }
+        ]
+    }
+};
+
+        // Hàm tổng hợp Form/Buttons dựa trên Module - ĐÃ SỬA FORM SUBMIT
+        function RENDER_MODULE_UI(module) {
+            const config = MODULE_CONFIG[module];
+            const area = document.getElementById('MAIN_FUNCTION_AREA');
+            const titleElement = document.querySelector('.PAGE-TITLE-BM');
+            
+            area.innerHTML = '';
+            
+            // Cập nhật tiêu đề trang
+            if (titleElement) titleElement.textContent = `QUẢN LÝ ${config.name} (MODULE ${module})`;
+
+            // Tạo Form/Button HTML — ĐÃ SỬA FORM SUBMIT
+            const html = `
+                <div id="Form${module}AddUpdate" class="p-4 bg-white rounded-lg shadow-md mb-6 border-l-4 border-[var(--ACCENT-MINT)]" style="display: none;">
+                    <h2 class="font-semibold text-lg mb-4 text-[var(--MINT-DARK)]" id="FormTitle">NHẬP THÔNG TIN MỚI</h2>
+                    <form id="${module.toLowerCase()}_form" class="grid grid-cols-2 gap-x-6 gap-y-3" onsubmit="handleFormSubmit(event, '${module}')">
+                        ${config.fields.map(field => `
+                            <div class="col-span-1 flex items-center">
+                                <label for="${module}_${field}_input" class="w-28 text-sm font-medium text-gray-700 uppercase">${field}:</label>
+                                <input type="text" id="${module}_${field}_input" name="${field}" ${field === 'id' || field === 'name' ? 'required' : ''} class="flex-grow p-2 border border-gray-300 rounded-md text-sm">
+                            </div>
+                        `).join('')}
+                        <button type="submit" class="col-span-2 ACTION-BTN-BM BG-MINT-ACCENT mt-4"><i class="FAS FA-SAVE"></i> LƯU VÀO HỆ THỐNG</button>
+                    </form>
+                </div>
+                
+                <div id="${module}ActionButtons" class="p-4 bg-white rounded-lg shadow-md">
+                    <h2 class="font-semibold text-lg mb-4 text-[var(--MINT-DARK)]">CHỨC NĂNG (MENU ${module})</h2>
+                    <div class="flex flex-wrap gap-3">
+    <button class="ACTION-BTN-BM BG-MINT-ACCENT" onclick="CALL_API('${module}', 'LIST')">
+        <i class="FAS FA-LIST-ALT"></i> 1. DANH SÁCH ${config.name}
+    </button>
+    <button class="ACTION-BTN-BM BG-MINT-ACCENT" onclick="SHOW_FORM_MODE('${module}', 'ADD')">
+        <i class="FAS FA-USER-PLUS"></i> 2. THÊM ${config.name} MỚI
+    </button>
+    <button class="ACTION-BTN-BM BG-SKY-ACCENT" onclick="CALL_API_WITH_ID('${module}', 'SEARCH')">
+        <i class="FAS FA-SEARCH"></i> 3. TÌM KIẾM BẰNG ID
+    </button>
+    <button class="ACTION-BTN-BM BG-RED-PASTEL" onclick="CALL_API_WITH_ID('${module}', 'REMOVE')">
+        <i class="FAS FA-USER-TIMES"></i> 4. XÓA
+    </button>
+    <button class="ACTION-BTN-BM BG-SKY-ACCENT" onclick="SHOW_FORM_MODE('${module}', 'UPDATE')">
+        <i class="FAS FA-USER-EDIT"></i> 5. CẬP NHẬT THÔNG TIN
+    </button>
+</div>
+                </div>
+            `;
+            area.innerHTML = html;
+            // Tự động tải danh sách khi chuyển Module
+            CALL_API(module, 'LIST', null, true);
+        }
+
+        function SHOW_FORM_MODE(module, mode) {
+            window.FORM_MODE = mode; 
+            const formContainer = document.getElementById(`Form${module}AddUpdate`);
+            const formTitle = document.getElementById('FormTitle');
+
+            // Ẩn/Hiện form
+            const isVisible = formContainer.style.display !== 'none';
+            if (isVisible && window.FORM_MODE === mode) {
+                 formContainer.style.display = 'none';
+                 return;
+            }
+
+            if (formContainer) {
+                formContainer.style.display = 'block';
+                formTitle.textContent = mode === 'ADD' ? `NHẬP THÔNG TIN ${MODULE_CONFIG[module].name} MỚI` : `CẬP NHẬT ${MODULE_CONFIG[module].name} (NHẬP ID VÀO Ô TRÊN)`;
+                
+                // reset all inputs of this module form
+                MODULE_CONFIG[module].fields.forEach(f => {
+                    const el = document.getElementById(`${module}_${f}_input`);
+                    if (el) el.value = '';
+                });
+
+                // If update mode, prefill id from top input (user will fill other fields)
+                if (mode === 'UPDATE') {
+                    const topId = document.getElementById('action_id_input').value;
+                    if (topId) {
+                        const idEl = document.getElementById(`${module}_id_input`);
+                        if (idEl) idEl.value = topId;
+                    }
+                }
+            }
+        }
+        
+        function LOADPAGE(module) {
+            CURRENT_MODULE = module;
+            document.querySelectorAll('.NAV-ITEM-BM').forEach(li => li.classList.remove('active'));
+            document.querySelector(`[onclick="LOADPAGE('${module}')"]`).closest('li').classList.add('active');
+            
+            RENDER_MODULE_UI(module);
+        }
+
+        function COLLECT_DATA_FROM_FORM(module) {
+            const config = MODULE_CONFIG[module];
+            const data = {};
+            
+            if (window.FORM_MODE === 'UPDATE') {
+                const topId = document.getElementById('action_id_input').value;
+                data.id = topId || (document.getElementById(`${module}_id_input`) ? document.getElementById(`${module}_id_input`).value : '');
+                if (!data.id) {
+                    LOG_MESSAGE('CHẾ ĐỘ CẬP NHẬT CẦN ID TỪ Ô TRÊN CÙNG!', 'warning');
+                    return null;
+                }
+            }
+
+            for (const field of config.fields) {
+                const el = document.getElementById(`${module}_${field}_input`);
+                if (el && el.value !== undefined) {
+                    // parse dateOfBirth if needed? keep as string — server expects string
+                    data[field] = (field === 'dateOfBirth') ? el.value : el.value;
+                }
+            }
+
+           if (window.FORM_MODE === 'ADD' && ['DOCTOR', 'NURSE', 'PATIENT'].includes(window.CURRENT_MODULE)) {
+    if (!data.name || !data.name.trim()) {
+        LOG_MESSAGE('TÊN LÀ TRƯỜNG BẮT BUỘC!', 'warning');
+        return null;
+    }
+}
+
+            
+            return data;
+        }
+
+        // Hàm format JSON thành HTML Table 
+        function FORMAT_TO_TABLE(data, title) {
+    const container = document.getElementById('DataDisplayContent');
+    const titleElement = document.getElementById('DataDisplayTitle');
+
+    titleElement.textContent = title;
+
+    if (!Array.isArray(data) || data.length === 0) {
+        container.innerHTML = `<p class="text-gray-500 mt-4 p-4 bg-white rounded-lg border">Không tìm thấy dữ liệu nào.</p>`;
+        return;
+    }
+
+    const dataKeys = Object.keys(data[0]);
+    let tableHTML = `<table class="DATA-DISPLAY-TABLE w-full border-collapse"><thead><tr class="bg-gray-100">`;
+
+    // Header
+    tableHTML += dataKeys.map(k => `<th class="p-2 text-left border-b">${k.toUpperCase()}</th>`).join('');
+    tableHTML += `</tr></thead><tbody>`;
+
+    // Rows
+    tableHTML += data.map(item => {
+        const rowHTML = dataKeys.map(k => {
+            let val = item[k];
+
+            if (val === undefined || val === null) return 'N/A';
+
+            // Nếu là object, lấy name nếu có, nếu không thì stringify
+            if (typeof val === 'object') {
+                if (val.name) return val.name;
+                return JSON.stringify(val);
+            }
+
+            return val;
+        }).map(v => `<td class="p-2 align-top border-b">${v}</td>`).join('');
+
+        return `<tr class="even:bg-gray-50">${rowHTML}</tr>`;
+    }).join('');
+
+    tableHTML += `</tbody></table>`;
+    container.innerHTML = tableHTML;
+}
+
+        function CALL_API_WITH_ID(module, action) {
+            const id = document.getElementById('action_id_input').value; 
+            if (!id || id.trim() === '') {
+                LOG_MESSAGE('VUI LÒNG NHẬP ID VÀO Ô "ID/TỪ KHÓA" TRÊN CÙNG.', 'warning');
+                return;
+            }
+            CALL_API(module, action, id);
+        }
+
+        async function CALL_API(module, action, targetId = null, isAutoLoad = false) {
+            const config = MODULE_CONFIG[module];
+            const MODULE_PLURAL = config.plural;
+            const ACTION = action.toLowerCase();
+            let dataToSend = null;
+            let method = 'GET';
+            let endpoint = API_BASE_URL + MODULE_PLURAL; 
+
+            // XỬ LÝ ENDPOINT DỰA TRÊN HÀNH ĐỘNG
+            if (ACTION === 'add') { 
+                method = 'POST';
+                dataToSend = COLLECT_DATA_FROM_FORM(module);
+                if (!dataToSend) return; 
+            } else if (ACTION === 'update') { 
+                method = 'PUT';
+                dataToSend = COLLECT_DATA_FROM_FORM(module);
+                if (!dataToSend || !dataToSend.id) return; 
+                endpoint += `/${dataToSend.id}`; 
+            } else if (targetId) { 
+                endpoint += `/${targetId}`;
+                if (ACTION === 'remove') {
+                    method = 'DELETE';
+                    if (!confirm(`BẠN CÓ CHẮC MUỐN XÓA ${config.name} ID: ${targetId}?`)) return;
+                }else if (ACTION === 'search') {
+                    method = 'GET';
+                }
+            } else if (ACTION !== 'list') {
+                 LOG_MESSAGE(`HÀNH ĐỘNG ${ACTION.toUpperCase()} YÊU CẦU ID.`, 'warning');
+                 return; 
+            }
+        
+            // CẬP NHẬT LOG
+            if (!isAutoLoad) LOG_MESSAGE(`GỌI API: ${endpoint} [${method}]...`);
+
+            try {
+                const response = await fetch(endpoint, { 
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: dataToSend ? JSON.stringify(dataToSend) : null
+                });
+
+                const status = response.status;
+                const data = await response.json().catch(() => ({ message: 'Không có nội dung phản hồi JSON' }));
+
+                if (status >= 200 && status < 300) {
+                    // ẨN FORM SAU KHI THÀNH CÔNG - ĐÃ DI CHUYỂN ĐẾN ĐÂY
+                    if (ACTION === 'add' || ACTION === 'update') {
+                        const formContainer = document.getElementById(`Form${module}AddUpdate`);
+                        if(formContainer) formContainer.style.display = 'none';
+                    }
+
+                    if (ACTION === 'list') {
+                        FORMAT_TO_TABLE(data, `DANH SÁCH ${config.name} (${data.length} MỤC)`);
+                    } else if (ACTION === 'search') {
+                        FORMAT_TO_TABLE(Array.isArray(data) ? data : [data], `KẾT QUẢ TÌM KIẾM CHO ID: ${targetId}`);
+                    } else if (ACTION === 'add') {
+                        // hiển thị bản ghi vừa lưu lên màn hình
+                        FORMAT_TO_TABLE(Array.isArray(data) ? data : [data], `ĐÃ THÊM ${config.name.toUpperCase()}`);
+                        LOG_MESSAGE(`THÊM ${config.name} THÀNH CÔNG (ID: ${data.id || 'N/A'})`, 'success');
+                    } else if (ACTION === 'update') {
+                        FORMAT_TO_TABLE(Array.isArray(data) ? data : [data], `ĐÃ CẬP NHẬT ${config.name.toUpperCase()}`);
+                        LOG_MESSAGE(`CẬP NHẬT ${config.name} THÀNH CÔNG (ID: ${data.id || 'N/A'})`, 'success');
+                    } else {
+                        // CẬP NHẬT LOG
+                        LOG_MESSAGE(`THAO TÁC ${ACTION.toUpperCase()} THÀNH CÔNG! Mã: ${status}.`, 'success');
+                        // TỰ ĐỘNG GỌI LIST để refresh
+                        CALL_API(module, 'LIST', null, true); 
+                    }
+                } else {
+                    const errorMsg = data.error || data.message || "LỖI KHÔNG XÁC ĐỊNH.";
+                    // CẬP NHẬT LOG
+                    LOG_MESSAGE(`LỖI SERVER (${status}): ${errorMsg}`, 'error');
+                }
+
+            } catch (error) {
+                // CẬP NHẬT LOG
+                LOG_MESSAGE(`LỖI MẠNG/KẾT NỐI: Failed to fetch. Chi tiết: ${error.message}. KIỂM TRA MÁY CHỦ C++!`, 'error');
+                SHOW_CONNECTION_ERROR(`Lỗi mạng. Chi tiết: ${error.message}`);
+            }
+        }
+
+        // TẢI NỘI DUNG MẶC ĐỊNH
+        document.addEventListener('DOMContentLoaded', () => {
+            LOADPAGE('DOCTOR'); 
+            // CẬP NHẬT LOG
+            LOG_MESSAGE('CHƯƠNG TRÌNH ĐÃ KHỞI ĐỘNG.', 'success');
+            LOG_MESSAGE('HỆ THỐNG GIAO TIẾP SẴN SÀNG. VUI LÒNG NHẤP NÚT.');
+        });
+    </script>
+</body>
+</html>

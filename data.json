@@ -1,0 +1,118 @@
+{
+    "doctors": [
+        {
+            "id": "234",
+            "name": "Trịnh Gia Hưng",
+            "specialty": "sfwrwerwe",
+            "phone": "12332123",
+            "email": "hungtrinh@gmail.com"
+        },
+        {
+            "id": "123",
+            "name": "Vũ Thu Hằng",
+            "specialty": "sdasdada",
+            "phone": "1234564321",
+            "email": "thuhangvu519@gmail.com"
+        },
+        {
+            "id": "345",
+            "name": "Nguyễn Tuấn Anh",
+            "specialty": "ưieiskadjsdjf",
+            "phone": "1235432132",
+            "email": "tuananh@gmail.com"
+        }
+    ],
+    "nurses": [
+        {
+            "id": "b003",
+            "name": "Bùi Thị Thanh Hoa",
+            "position": "fdasdadksaj",
+            "phone": "908767890",
+            "email": "hoa@gmail.com"
+        },
+        {
+            "id": "4567",
+            "name": "Thu Hằng Vũ",
+            "position": "lksfjwroiwer",
+            "phone": "0986732",
+            "email": "vu@gmail.com"
+        },
+        {
+            "id": "12345",
+            "name": "Nguyen Van A",
+            "position": "ffdgdggf",
+            "phone": "4234234532",
+            "email": "grggf@gmail.com"
+        }
+    ],
+    "patients": [
+        {
+            "id": "zxcv",
+            "name": "Nguyễn Tuấn Anh",
+            "dateOfBirth": "12/09/2006",
+            "phone": "1235432",
+            "email": "tuan@gmail.com"
+        },
+        {
+            "id": "12345",
+            "name": "Nguyen Van B",
+            "dateOfBirth": "21/12/1995",
+            "phone": "4234234532",
+            "email": "grggf@gmail.com"
+        },
+        {
+            "id": "T003",
+            "name": "fsiejfosjsf",
+            "dateOfBirth": "21/12/1995",
+            "phone": "4234234532",
+            "email": "grggf@gmail.com"
+        }
+    ],
+    "appointments": [
+        {
+            "id": "534543",
+            "patientId": "zxcv",
+            "doctorId": "123",
+            "typeName": "Khám tổng quát",
+            "date": "12/12/2025",
+            "time": "4:30",
+            "status": "ongoing"
+        },
+        {
+            "id": "D003",
+            "patientId": "123",
+            "doctorId": "76556",
+            "typeName": "Checkup",
+            "date": "12/12/2025",
+            "time": "5:32",
+            "status": "ongoing"
+        },
+        {
+            "id": "12345",
+            "patientId": "123",
+            "doctorId": "76556",
+            "typeName": "gdrgđf",
+            "date": "12/12/2025",
+            "time": "4:30",
+            "status": "ongoing"
+        }
+    ],
+    "treatments": [
+        {
+            "id": "T003",
+            "patientId": "435435",
+            "typeName": "Medication",
+            "date": "12/12/2025",
+            "notes": "reggddfbđgd",
+            "status": "comfirmed"
+        },
+        {
+            "id": "T003",
+            "patientId": "435435",
+            "typeName": "Therapy",
+            "date": "16/03/2025",
+            "notes": "reggddfbđgd",
+            "status": "comfirmed"
+        }
+    ]
+}
